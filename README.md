@@ -2,6 +2,7 @@
 This repository serves as a centralized workspace for hands-on Python projects completed via DataCamp.
 
 ## Project Structure
+```
 datacamp-python-projects/
 ├── netflix-1990s-eda/
 │   ├── netflix_data.csv      # Raw dataset
@@ -12,3 +13,4 @@ datacamp-python-projects/
 ├── project-3/
 │   └── ...
 └── README.md
+```
