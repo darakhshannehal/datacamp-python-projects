@@ -11,6 +11,7 @@ This DataCamp python project showcases exploratory data analysis (EDA) on the ne
 
 ## Libraries
 pandas: Data filtering, manipulation, and summary statistics
+
 matplotlib: Visualizing the distribution of movie durations
 
 Data: netflix_data.csv
