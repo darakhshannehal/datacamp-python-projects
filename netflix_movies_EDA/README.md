@@ -1,7 +1,7 @@
 # 🎬 Netflix 1990s Movies EDA
 
 ## Overview
-This DataCamp python project showcases exploratory data analysis (EDA) on the netflix_data.csv dataset to uncover trends in 1990s movie releases.
+This DataCamp python project showcases exploratory data analysis (**EDA**) on the netflix_data.csv dataset to uncover trends in 1990s movie releases.
 
 ## Questions answered
 - What was the most frequent movie duration (in minutes) in the 1990s?
@@ -10,8 +10,8 @@ This DataCamp python project showcases exploratory data analysis (EDA) on the ne
 
 
 ## Libraries
-pandas: Data filtering, manipulation, and summary statistics
+**pandas**: Data filtering, manipulation, and summary statistics
 
-matplotlib: Visualizing the distribution of movie durations
+**matplotlib**: Visualizing the distribution of movie durations
 
-Data: netflix_data.csv
+**Data**: netflix_data.csv
