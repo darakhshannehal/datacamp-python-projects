@@ -1,0 +1,57 @@
+---
+title: "Sleep & Health EDA"
+format: html
+---
+
+```{python}
+# Imports
+import pandas as pd
+
+# Load data 
+sleep_df = pd.read_csv('sleep_health_data.csv')
+```
+
+```{python}
+# Which occupation has the lowest average sleep duration? Save this in a string variable called `lowest_sleep_occ`.
+
+# Groupby occupation and calculate mean sleep duration 
+sleep_duration = sleep_df.groupby('Occupation')['Sleep Duration'].mean()
+# Get occupation with lowest average sleep duration
+lowest_sleep_occ = sleep_duration.sort_values().index[0] # Save in string variable
+```
+
+```{python}
+# Which occupation had the lowest quality of on average? Did the occupation with the lowest sleep duration also have the worst sleep quality?
+
+# Groupby occupation and calculate average sleep quality
+sleep_quality = sleep_df.groupby('Occupation')['Quality of Sleep'].mean()
+# Occupation with lowest average sleep quality 
+lowest_sleep_quality_occ = sleep_quality.sort_values().index[0]
+
+# Compare occupation with the least sleep to occupation with the lowest sleep quality
+if lowest_sleep_occ == lowest_sleep_quality_occ:
+  same_occ = True
+else:
+  same_occ = False
+```
+
+```{python}
+# Let's explore how BMI Category can affect sleep disorder rates. Start by finding what ratio of app users in each BMI category have been diagnosed with Insomnia.
+
+# Create an empty dictionary to store insomnia ratios by BMI category
+bmi_insomnia_ratios = {}
+
+# Get all unique BMI categories from the dataset
+categories = sleep_df['BMI Category'].unique()
+
+# Loop through each BMI category and compute the insomnia ratio
+for cat in categories:
+    total = len(sleep_df[sleep_df['BMI Category'] == cat])
+    insomnia = len(sleep_df[(sleep_df['BMI Category'] == cat) & 
+                            (sleep_df['Sleep Disorder'] == 'Insomnia')])
+    bmi_insomnia_ratios[cat] = round(insomnia / total, 2)
+
+# View the final dictionary
+print(bmi_insomnia_ratios)
+
+```
