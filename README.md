@@ -8,8 +8,10 @@ datacamp-python-projects/
 │   ├── netflix_data.csv      # Raw dataset
 │   ├── code.qmd              # Quarto notebook with analysis and visuals
 │   └── README.md
-├── project-2/
-│   └── ...
+├── sleep_data_analysis/               
+│   ├── sleep_health_data.csv        
+│   ├── code.qmd             
+│   ├── README.md                   
 ├── project-3/
 │   └── ...
 └── README.md
