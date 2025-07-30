@@ -1,0 +1,75 @@
+---
+title: "Analyzing Crime in Los Angeles"
+format: html
+---
+
+```{python}
+# Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load Data
+crimes_df = pd.read_csv("LA_crime_analysis/crimes.csv", dtype={"TIME OCC": str}) # Ensures 'TIME OCC' column is interpreted as string data type.
+crimes_df.head() 
+crimes_df.info() # Check data types
+
+```
+
+```{python}
+# Which hour has the highest frequency of crimes? Store as an integer variable called peak_crime_hour.
+
+# Convert 'TIME OCC' to hour
+crimes_df['hour'] = crimes_df['TIME OCC'].str[:2].astype(int) # Takes first two characters of each time entry
+
+# Count frequency of each hour
+hour_counts = crimes_df['hour'].value_counts()
+
+# hour with the highest frequency
+peak_crime_hour = hour_counts.idxmax()
+
+print(f"Peak Hour for Crime: {peak_crime_hour}:00")
+
+# Visualization
+sns.countplot(data=crimes_df, x='hour', palette='mako')
+plt.title("Crimes by Hour of Day")
+plt.xticks(rotation=0)
+plt.show()
+
+```
+
+```{python}
+# Which area has the largest frequency of night crimes (crimes committed between 10pm and 3:59am)? Save as a string variable called peak_night_crime_location.
+
+night_hours = [22, 23, 0, 1, 2, 3] # Define night hours
+
+# Filter rows where the hour is in night_hours
+night_crimes_df = crimes_df[crimes_df['hour'].isin(night_hours)]
+
+# Count frequency by location
+location_counts = night_crimes_df['AREA NAME'].value_counts()
+
+# Location with highest frequency
+peak_night_crime_location = location_counts.idxmax()
+
+print(f"Area with Most Night Crimes: {peak_night_crime_location}")
+
+```
+
+```{python}
+# Identify the number of crimes committed against victims of different age groups. Save as a pandas Series called victim_ages, with age group labels "0-17", "18-25", "26-34", "35-44", "45-54", "55-64", and "65+" as the index and the frequency of crimes as the values.
+
+# Define age bins and labels
+age_bins = [0, 17, 25, 34, 44, 54, 64, float('inf')]
+age_labels = ["0-17", "18-25", "26-34", "35-44", "45-54", "55-64", "65+"]
+
+# Add age group column
+crimes_df['victim_age_group'] = pd.cut(crimes_df['Vict Age'], bins=age_bins, labels=age_labels, right=True)
+
+# Count crimes in each age group
+victim_ages = crimes_df['victim_age_group'].value_counts().sort_index()
+
+# Print the Series
+print(victim_ages)
+
+```
