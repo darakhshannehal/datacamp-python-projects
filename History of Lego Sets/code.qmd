@@ -1,0 +1,53 @@
+---
+title: "Examining the History of Lego Sets"
+format: html
+---
+```{python}
+# Imports
+import pandas as pd
+
+#Load Data
+lego_sets = pd.read_csv('data/lego_sets.csv')
+parent_themes = pd.read_csv('data/parent_themes.csv')
+
+lego_sets.head()
+lego_sets.info() # Check data types
+parent_themes.head()
+```
+
+##### The team responsible for the Star Wars partnership has asked for specific information in preparation for their meeting:
+
+```{python}
+# What percentage of all licensed sets ever released were Star Wars themed? Save your answer as a variable the_force, as an integer.
+
+# Merge lego_sets with parent_themes on parent_theme and name
+merged_df = lego_sets.merge(parent_themes, how="left", left_on="parent_theme", right_on="name")
+
+# Filter for Licensed & Star Wars theme
+star_wars_sets = merged_df[
+    (merged_df["is_licensed"] == True) &
+    (merged_df["parent_theme"] == "Star Wars")
+]
+
+# Total number of licensed sets
+licensed_total = merged_df[merged_df["is_licensed"] == True].shape[0]
+# Total number of licensed Star Wars sets
+star_wars_total = star_wars_sets.shape[0]
+
+# percentage
+the_force = round((star_wars_total / licensed_total) * 100)
+# Print
+print("Percentage of licensed LEGO sets that are Star Wars themed:", the_force, "%")
+```
+
+```{python}
+# In which year was the highest number of Star Wars sets released? Save your answer as a variable new_era, as an integer.
+
+# Group by year and count the number of sets per year
+set_counts = star_wars_sets['year'].value_counts()
+# Sort in descending order and take the year with the highest count
+new_era = set_counts.idxmax()
+
+# Print
+print(f"{new_era} is the year with the highest number of Star Wars sets released.")
+```
