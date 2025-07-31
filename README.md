@@ -16,8 +16,15 @@ datacamp-python-projects/
 │   ├── crimes.csv                 
 │   ├── code.qmd                   
 │   ├── README.md                  
-├── project-4/
-│   └── ...
+├── lego-history-analysis/
+│   ├── data/
+│   │   ├── lego_sets.csv              
+│   │   ├── parent_themes.csv          
+│   │   └── data_dictionary.md         
+│   ├── code.qmd                       
+│   └── README.md
+├── project-5/
+│   └── ...      
 └── README.md                      
 
 ```
