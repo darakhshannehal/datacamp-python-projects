@@ -15,3 +15,13 @@ datacamp-python-projects/
 └── README.md              
                   
 ```
+
+## 📚 Project Summary
+
+| Project Title        | Libraries Used              | Key Techniques |
+|----------------------|-----------------------------|----------------|
+| History of LEGO Sets | pandas                      |                |
+| Sleep Data Analysis  | pandas                      |                |
+| LA Crime Analysis    | pandas, seaborn, matplotlib |                |
+| 1990s Netflix EDA    | pandas, matplotlib          |                |
+| ......               |                             |                |
