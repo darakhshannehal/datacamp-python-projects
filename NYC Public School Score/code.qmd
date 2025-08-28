@@ -1,0 +1,84 @@
+---
+title: "Exploring NYC Public School Test Result Scores"
+format: html
+---
+
+```{python}
+# Import
+import pandas as pd
+
+# Load data
+schools_data = pd.read_csv("schools.csv")
+```
+
+```{python}
+# Preview the data
+schools_data.info()  # Column types
+schools_data.head()  # First few rows
+schools_data.shape  # Dimensions: (rows, columns)
+
+```
+
+### Which NYC schools have the best math results?
+
+```{python}
+
+# Filter schools with strong math performance (≥ 640 out of 800)
+best_math_schools = schools_data[schools_data["average_math"] >= 640]
+
+# Select relevant columns
+best_math_schools = best_math_schools[["school_name", "average_math"]]
+
+# Sort by average_math in descending order
+best_math_schools = best_math_schools.sort_values(by="average_math", ascending=False)
+
+# View result
+print(best_math_schools)
+```
+
+### What are the top 10 performing schools based on the combined SAT scores?
+
+```{python}
+# Calculate total SAT score
+schools_data['total_SAT'] = (
+    schools_data['average_math'] +
+    schools_data['average_reading'] +
+    schools_data['average_writing']
+)
+
+# Select relevant columns
+top_10_schools = schools_data[['school_name', 'total_SAT']]
+
+# Sort and extract top 10
+top_10_schools = top_10_schools.sort_values(by='total_SAT', ascending=False).head(10)
+
+# View result
+print(top_10_schools)
+
+```
+
+### Which single borough has the largest standard deviation in the combined SAT score?
+
+```{python}
+# Group by borough and calculate required stats
+borough_stats = (
+    schools_data.groupby("borough")
+    .agg(
+        num_schools=("school_name", "count"),  # Total schools per borough
+        average_SAT=("total_SAT", "mean"),  # Mean SAT score
+        std_SAT=("total_SAT", "std"),  # SAT score variability
+    )
+    .reset_index()
+)
+
+# Round numeric values to two decimal places
+borough_stats[["average_SAT", "std_SAT"]] = borough_stats[
+    ["average_SAT", "std_SAT"]
+].round(2)
+
+# Borough with the largest standard deviation
+largest_std_dev = borough_stats.sort_values(by="std_SAT", ascending=False).head(1)
+
+# View result
+print(largest_std_dev)
+```
